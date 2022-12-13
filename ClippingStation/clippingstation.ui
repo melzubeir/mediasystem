@@ -1,0 +1,2225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ClippingStation</class>
+ <widget class="QMainWindow" name="ClippingStation">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1966</width>
+    <height>915</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Clipping Station</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	border-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.1 rgba(255, 255, 255, 255), stop:0.2 rgba(255, 176, 176, 167), stop:0.3 rgba(255, 151, 151, 92), stop:0.4 rgba(255, 125, 125, 51), stop:0.5 rgba(255, 76, 76, 205), stop:0.52 rgba(255, 76, 76, 205), stop:0.6 rgba(255, 180, 180, 84), stop:1 rgba(255, 255, 255, 0));
+}</string>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_8">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter">
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="handleWidth">
+       <number>6</number>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>true</bool>
+      </property>
+      <widget class="QFrame" name="fullpageViewFrame">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QWidget" name="widget_2" native="true">
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QPushButton" name="preclipButton">
+                 <property name="text">
+                  <string>Preclip</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/icons/select.png</normaloff>:/icons/select.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="cancelModifyPreclipButton">
+                 <property name="toolTip">
+                  <string>Cancel Modification of Preclip</string>
+                 </property>
+                 <property name="text">
+                  <string>Cancel</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/icons/cancel.png</normaloff>:/icons/cancel.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="rotateSpinBox">
+                 <property name="locale">
+                  <locale language="English" country="UnitedStates"/>
+                 </property>
+                 <property name="minimum">
+                  <double>-360.000000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>360.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout"/>
+               </item>
+               <item>
+                <widget class="QToolButton" name="saveRotateButton">
+                 <property name="text">
+                  <string>Save</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_7">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>1</width>
+                   <height>10</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pauseTrackButton">
+                 <property name="text">
+                  <string>Pause Tracking</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <layout class="QHBoxLayout" name="pageButtonsHorizontalLayout">
+                 <item>
+                  <widget class="QToolButton" name="firstPageButton">
+                   <property name="toolTip">
+                    <string>First Page</string>
+                   </property>
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/firstpage.png</normaloff>:/icons/firstpage.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="previousPageButton">
+                   <property name="toolTip">
+                    <string>Previous Page</string>
+                   </property>
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/previous.png</normaloff>:/icons/previous.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="gotoPageLineEdit">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>35</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Go to page</string>
+                   </property>
+                   <property name="inputMask">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="nextPageButton">
+                   <property name="toolTip">
+                    <string>Next Page</string>
+                   </property>
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/next.png</normaloff>:/icons/next.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="lastPageButton">
+                   <property name="toolTip">
+                    <string>Last Page</string>
+                   </property>
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/lastpage.png</normaloff>:/icons/lastpage.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="zoomActionsHorizontalLayout">
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Minimum</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>10</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="bestFitButton">
+                   <property name="toolTip">
+                    <string>Best Fit</string>
+                   </property>
+                   <property name="text">
+                    <string>B</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="widthFitButton">
+                   <property name="toolTip">
+                    <string>Fit to Width</string>
+                   </property>
+                   <property name="text">
+                    <string>W</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="acutalSizeButton">
+                   <property name="toolTip">
+                    <string>Actual Size</string>
+                   </property>
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/resetzoom.png</normaloff>:/icons/resetzoom.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="zoomoutButton">
+                   <property name="toolTip">
+                    <string>Zoom Out</string>
+                   </property>
+                   <property name="text">
+                    <string>in</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/zoomout.png</normaloff>:/icons/zoomout.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="zoominButton">
+                   <property name="toolTip">
+                    <string>Zoom In</string>
+                   </property>
+                   <property name="text">
+                    <string>in</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/zoomin.png</normaloff>:/icons/zoomin.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_6">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Expanding</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>1</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="1">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>106</width>
+               <height>47</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="2">
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="DigitalClock" name="lcdCounter">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>58</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>8</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="3">
+            <spacer name="horizontalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>106</width>
+               <height>47</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="4">
+            <layout class="QHBoxLayout" name="horizontalLayout_13">
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>8</width>
+                 <height>8</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QToolButton" name="orderButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Order</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="autoArrangeButton">
+               <property name="text">
+                <string>Auto
+Arrange</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="FullPageView" name="fullpageView"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QFrame" name="clippingViewFrame">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPushButton" name="addPageButton">
+            <property name="toolTip">
+             <string>Add Page</string>
+            </property>
+            <property name="text">
+             <string>Add</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons/pageadd.png</normaloff>:/icons/pageadd.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="removePageButton">
+            <property name="toolTip">
+             <string>Remove Page</string>
+            </property>
+            <property name="text">
+             <string>Remove</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons/pageremove.png</normaloff>:/icons/pageremove.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QToolButton" name="drawerPreviousPageButton">
+            <property name="text">
+             <string>&lt;-</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons/previous.png</normaloff>:/icons/previous.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="drawerNextPageButton">
+            <property name="text">
+             <string>-&gt;</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons/next.png</normaloff>:/icons/next.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="pageInformation">
+            <property name="text">
+             <string>Page %1 of %2</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QPushButton" name="clipButton">
+            <property name="text">
+             <string>Clip</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons/select.png</normaloff>:/icons/select.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="rejectButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Reject</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons/cancel.png</normaloff>:/icons/cancel.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="zoomActionsHorizontalLayout_2">
+              <item>
+               <widget class="QToolButton" name="drawerBestFitButton">
+                <property name="toolTip">
+                 <string>Best Fit</string>
+                </property>
+                <property name="text">
+                 <string>B</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="drawerWidthFitButton">
+                <property name="toolTip">
+                 <string>Fit to Width</string>
+                </property>
+                <property name="text">
+                 <string>W</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="drawerAcutalSizeButton">
+                <property name="toolTip">
+                 <string>Actual Size</string>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/icons/resetzoom.png</normaloff>:/icons/resetzoom.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="drawerZoomoutButton">
+                <property name="toolTip">
+                 <string>Zoom Out</string>
+                </property>
+                <property name="text">
+                 <string>in</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/icons/zoomout.png</normaloff>:/icons/zoomout.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="drawerZoominButton">
+                <property name="toolTip">
+                 <string>Zoom In</string>
+                </property>
+                <property name="text">
+                 <string>in</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/icons/zoomin.png</normaloff>:/icons/zoomin.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QStackedWidget" name="stackedDrawerViewWidget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="page"/>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1966</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionImporter"/>
+    <addaction name="separator"/>
+    <addaction name="action_Exit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
+     <string>Windows</string>
+    </property>
+    <addaction name="actionPublications"/>
+    <addaction name="actionKeyword"/>
+   </widget>
+   <widget class="QMenu" name="menuArticle">
+    <property name="title">
+     <string>Operations</string>
+    </property>
+    <addaction name="actionClip"/>
+    <addaction name="actionPreclip"/>
+    <addaction name="separator"/>
+    <addaction name="actionModifyPreclip"/>
+    <addaction name="separator"/>
+    <addaction name="actionRejectClip"/>
+    <addaction name="actionDeletePreclip"/>
+    <addaction name="separator"/>
+    <addaction name="actionAutoArrange"/>
+    <addaction name="separator"/>
+    <addaction name="actionViewClipText"/>
+    <addaction name="actionViewKeywordsSearchword"/>
+    <addaction name="actionGoToKeywordWikiPage"/>
+   </widget>
+   <widget class="QMenu" name="menuDrawer">
+    <property name="title">
+     <string>Drawer</string>
+    </property>
+    <addaction name="actionDrawerAddPage"/>
+    <addaction name="actionDrawerRemovePage"/>
+   </widget>
+   <widget class="QMenu" name="menuFull_page">
+    <property name="title">
+     <string>Full page</string>
+    </property>
+    <widget class="QMenu" name="menuNavigation">
+     <property name="title">
+      <string>Navigation</string>
+     </property>
+     <addaction name="actionFirstPage"/>
+     <addaction name="actionPreviousPage"/>
+     <addaction name="actionNextPage"/>
+     <addaction name="actionLastPage"/>
+    </widget>
+    <widget class="QMenu" name="menuView">
+     <property name="title">
+      <string>Page Layout</string>
+     </property>
+     <addaction name="actionActualSize"/>
+     <addaction name="actionPageWidth"/>
+     <addaction name="actionBestFit"/>
+    </widget>
+    <widget class="QMenu" name="menuZoom">
+     <property name="title">
+      <string>Zoom</string>
+     </property>
+     <addaction name="actionZoomIn"/>
+     <addaction name="actionZoomOut"/>
+    </widget>
+    <addaction name="menuNavigation"/>
+    <addaction name="menuView"/>
+    <addaction name="menuZoom"/>
+   </widget>
+   <widget class="QMenu" name="menuIssue">
+    <property name="title">
+     <string>Issue</string>
+    </property>
+    <addaction name="actionMarkIssueAsDone"/>
+    <addaction name="actionMarkIssueAsUndone"/>
+    <addaction name="actionSendIssuetoORC"/>
+    <addaction name="actionSendPagetoORC"/>
+    <addaction name="actionViewPageText"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuWindows"/>
+   <addaction name="menuIssue"/>
+   <addaction name="menuArticle"/>
+   <addaction name="menuFull_page"/>
+   <addaction name="menuDrawer"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QDockWidget" name="importerDockWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="windowTitle">
+    <string>Importer</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="importerDockWidgetContents"/>
+  </widget>
+  <widget class="QDockWidget" name="publicatonIssueDockWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QDockWidget{
+   border: 1px solid;
+	border-color: rgb(0, 0, 0);
+}</string>
+   </property>
+   <property name="windowTitle">
+    <string>Publications</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="publicatonIssueDockWidgetContents">
+    <layout class="QGridLayout" name="gridLayout_7">
+     <item row="0" column="0">
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTabWidget::pane{background-color:  transparent;}</string>
+       </property>
+       <property name="tabShape">
+        <enum>QTabWidget::Rounded</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="publicationsTab">
+        <attribute name="title">
+         <string>Publications</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="pubNameLabel_2">
+             <property name="text">
+              <string>Publication </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="publicationNameLineEdit_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="filteredPublicationsTab">
+        <attribute name="title">
+         <string>Preclipped</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QLabel" name="pubNameLabel_3">
+             <property name="text">
+              <string>Publication </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="preclippedPublicationComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Search</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="filterPublicationsPushButton">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="pubNameLabel_4">
+             <property name="text">
+              <string>Publication </string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QComboBox" name="filteredPublicationComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="publicationWithUndoneIssues">
+        <attribute name="title">
+         <string>Undone</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_11">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="pubNameLabel_5">
+             <property name="text">
+              <string>Publication </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="undonePublicationComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QSplitter" name="splitter_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QTreeView" name="issuesTreeView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::CustomContextMenu</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="expandsOnDoubleClick">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QTreeView" name="clipsTreeView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::CustomContextMenu</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="expandsOnDoubleClick">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="keywordDockWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="windowTitle">
+    <string>Tags</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Tags</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="keywordLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>%%</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="searchPushButton">
+         <property name="text">
+          <string>Search</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="0">
+      <widget class="QTreeWidget" name="treeWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::MultiSelection</enum>
+       </property>
+       <property name="allColumnsShowFocus">
+        <bool>true</bool>
+       </property>
+       <property name="columnCount">
+        <number>2</number>
+       </property>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Comment</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QPushButton" name="checkAllPushButton">
+           <property name="text">
+            <string>Check All</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="uncheckAllPushButton">
+           <property name="text">
+            <string>Uncheck All</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>118</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="selectPushButton">
+           <property name="text">
+            <string>Select</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="0">
+      <widget class="QTreeView" name="treeView">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="lineWidth">
+        <number>4</number>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="rootIsDecorated">
+        <bool>true</bool>
+       </property>
+       <property name="uniformRowHeights">
+        <bool>true</bool>
+       </property>
+       <property name="itemsExpandable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="StatusBar" name="statusBar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="actionImporter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Importer</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About...</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionPublications">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Publications</string>
+   </property>
+  </action>
+  <action name="actionKeyword">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Keyword</string>
+   </property>
+  </action>
+  <action name="actionDeletePreclip">
+   <property name="text">
+    <string>Delete preclip</string>
+   </property>
+  </action>
+  <action name="actionModifyPreclip">
+   <property name="text">
+    <string>Modify preclip</string>
+   </property>
+  </action>
+  <action name="actionClip">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/green_selection.png</normaloff>:/icons/green_selection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clip</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionPreclip">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/red_selection.png</normaloff>:/icons/red_selection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preclip</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionDrawerAddPage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/pageadd.png</normaloff>:/icons/pageadd.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionDrawerRemovePage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/pageremove.png</normaloff>:/icons/pageremove.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Page</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionFirstPage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/firstpage.png</normaloff>:/icons/firstpage.png</iconset>
+   </property>
+   <property name="text">
+    <string>First Page</string>
+   </property>
+   <property name="shortcut">
+    <string>Home</string>
+   </property>
+  </action>
+  <action name="actionPreviousPage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/previous.png</normaloff>:/icons/previous.png</iconset>
+   </property>
+   <property name="text">
+    <string>Previous Page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionNextPage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/next.png</normaloff>:/icons/next.png</iconset>
+   </property>
+   <property name="text">
+    <string>Next Page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionLastPage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/lastpage.png</normaloff>:/icons/lastpage.png</iconset>
+   </property>
+   <property name="text">
+    <string>Last Page</string>
+   </property>
+   <property name="shortcut">
+    <string>End</string>
+   </property>
+  </action>
+  <action name="actionActualSize">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/resetzoom.png</normaloff>:/icons/resetzoom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Actual Size</string>
+   </property>
+  </action>
+  <action name="actionPageWidth">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Page Width</string>
+   </property>
+  </action>
+  <action name="actionBestFit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Best Fit</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/zoomin.png</normaloff>:/icons/zoomin.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/zoomout.png</normaloff>:/icons/zoomout.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionMarkIssueAsDone">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/ok.png</normaloff>:/icons/ok.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mark Issue as Done</string>
+   </property>
+  </action>
+  <action name="actionAutoArrange">
+   <property name="text">
+    <string>Auto Arrange</string>
+   </property>
+   <property name="toolTip">
+    <string>Auto Arrange Cutouts</string>
+   </property>
+  </action>
+  <action name="actionRejectClip">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/cancel.png</normaloff>:/icons/cancel.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reject clip</string>
+   </property>
+  </action>
+  <action name="actionMarkIssueAsUndone">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/cancel.png</normaloff>:/icons/cancel.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mark Issue as Undone</string>
+   </property>
+  </action>
+  <action name="actionSendPagetoORC">
+   <property name="text">
+    <string>Send Page to OCR</string>
+   </property>
+  </action>
+  <action name="actionViewPageText">
+   <property name="text">
+    <string>View Page Text</string>
+   </property>
+  </action>
+  <action name="actionSendIssuetoORC">
+   <property name="text">
+    <string>Send Issue to OCR</string>
+   </property>
+  </action>
+  <action name="actionViewClipText">
+   <property name="text">
+    <string>View Clip Text</string>
+   </property>
+  </action>
+  <action name="actionViewKeywordsSearchword">
+   <property name="text">
+    <string>View Keyword's Searchword</string>
+   </property>
+  </action>
+  <action name="actionGoToKeywordWikiPage">
+   <property name="text">
+    <string>Go to Keyword Wiki Page</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>StatusBar</class>
+   <extends>QStatusBar</extends>
+   <header location="global">statusbar.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FullPageView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">fullpageview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DigitalClock</class>
+   <extends>QLCDNumber</extends>
+   <header location="global">digitalclock.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>issuesTreeView</tabstop>
+  <tabstop>nextPageButton</tabstop>
+  <tabstop>lastPageButton</tabstop>
+  <tabstop>bestFitButton</tabstop>
+  <tabstop>widthFitButton</tabstop>
+  <tabstop>acutalSizeButton</tabstop>
+  <tabstop>zoomoutButton</tabstop>
+  <tabstop>zoominButton</tabstop>
+  <tabstop>fullpageView</tabstop>
+  <tabstop>addPageButton</tabstop>
+  <tabstop>drawerPreviousPageButton</tabstop>
+  <tabstop>drawerNextPageButton</tabstop>
+  <tabstop>firstPageButton</tabstop>
+  <tabstop>previousPageButton</tabstop>
+  <tabstop>keywordLineEdit</tabstop>
+  <tabstop>searchPushButton</tabstop>
+  <tabstop>checkAllPushButton</tabstop>
+  <tabstop>uncheckAllPushButton</tabstop>
+  <tabstop>selectPushButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>issuesTreeView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>issueTreeViewItemClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>359</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>308</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>firstPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>firstPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>584</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>521</x>
+     <y>344</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>previousPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>previousPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>613</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>382</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nextPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>nextPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>683</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>420</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lastPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>lastPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>712</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>522</x>
+     <y>456</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acutalSizeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>actualSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>804</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>731</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomoutButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>zoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>833</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>856</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoominButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>zoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>862</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widthFitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>widthFit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>775</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>727</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bestFitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>bestFit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>746</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>726</x>
+     <y>135</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>searchKeyword()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>519</x>
+     <y>644</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>336</x>
+     <y>616</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>keywordLineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>searchKeyword()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>233</x>
+     <y>642</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>508</x>
+     <y>606</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkAllPushButton</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>checkAllKeywords()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>883</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>837</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uncheckAllPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>uncheckAllKeywords()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>883</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>397</x>
+     <y>853</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>selectKeyword()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>883</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>843</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gotoPageLineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>gotoPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>654</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>521</x>
+     <y>491</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>preclipButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>preclip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>634</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>39</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerAddPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1563</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1386</x>
+     <y>53</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removePageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerRemovePage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1644</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1576</x>
+     <y>53</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clipButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>clip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1563</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1358</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerPreviousPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerPreviousPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1788</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1679</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerNextPageButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerNextPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1817</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1669</x>
+     <y>147</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerBestFitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerBestFit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1827</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1772</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerWidthFitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerWidthFit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1856</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1803</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerAcutalSizeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerActualSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1885</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1832</x>
+     <y>228</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerZoomoutButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerZoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1914</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1856</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>drawerZoominButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>drawerZoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1943</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1866</x>
+     <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>publicationNameLineEdit_2</sender>
+   <signal>returnPressed()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>loadIssues()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>loadFilteredPublication(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>257</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>preclippedPublicationComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>loadIssuesWithPreclipsOnly()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>542</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clipsTreeView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>articleTreeViewClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>359</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>311</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clipsTreeView</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>clipsTreeContextMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>359</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelModifyPreclipButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>cancelModifyPreclip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>715</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>432</x>
+     <y>402</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>orderButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>orderCutoutsSelections()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1440</x>
+     <y>87</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1200</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>autoArrangeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>onActionAutoArrange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1521</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1046</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>issuesTreeView</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>issueTreeContextMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>114</x>
+     <y>267</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>308</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotateSpinBox</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>rotate(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>801</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1225</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveRotateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>saveImageRotation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>863</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1339</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filterPublicationsPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>filterPublications()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>93</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filteredPublicationComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>loadFilteredIssues()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>539</x>
+     <y>137</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeView</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>keywordsTreeContextMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>507</x>
+     <y>534</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>535</x>
+     <y>543</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>undonePublicationComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>loadUndoneIssuesOnly()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pauseTrackButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ClippingStation</receiver>
+   <slot>pauseTracking()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1375</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1487</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>showIssues()</slot>
+  <slot>issueTreeViewItemClicked(QModelIndex)</slot>
+  <slot>zoomOut()</slot>
+  <slot>zoomIn()</slot>
+  <slot>firstPage()</slot>
+  <slot>nextPage()</slot>
+  <slot>previousPage()</slot>
+  <slot>lastPage()</slot>
+  <slot>actualSize()</slot>
+  <slot>bestFit()</slot>
+  <slot>widthFit()</slot>
+  <slot>searchKeyword()</slot>
+  <slot>checkAllKeywords()</slot>
+  <slot>uncheckAllKeywords()</slot>
+  <slot>selectKeyword()</slot>
+  <slot>ocrTreeViewClicked(QModelIndex)</slot>
+  <slot>gotoPage()</slot>
+  <slot>preclip()</slot>
+  <slot>articleTreeViewClicked(QModelIndex)</slot>
+  <slot>drawerAddPage()</slot>
+  <slot>drawerRemovePage()</slot>
+  <slot>clip()</slot>
+  <slot>drawerPreviousPage()</slot>
+  <slot>drawerNextPage()</slot>
+  <slot>loadIssues()</slot>
+  <slot>drawerBestFit()</slot>
+  <slot>drawerActualSize()</slot>
+  <slot>drawerWidthFit()</slot>
+  <slot>drawerZoomIn()</slot>
+  <slot>drawerZoomOut()</slot>
+  <slot>loadFilteredPublication(int)</slot>
+  <slot>loadIssuesWithPreclipsOnly()</slot>
+  <slot>clipsTreeContextMenu(QPoint)</slot>
+  <slot>cancelModifyPreclip()</slot>
+  <slot>orderCutoutsSelections()</slot>
+  <slot>onActionAutoArrange()</slot>
+  <slot>issueTreeContextMenu(QPoint)</slot>
+  <slot>rotate(double)</slot>
+  <slot>saveImageRotation()</slot>
+  <slot>filterPublications()</slot>
+  <slot>loadFilteredIssues()</slot>
+  <slot>keywordsTreeContextMenu(QPoint)</slot>
+  <slot>loadUndoneIssuesOnly()</slot>
+  <slot>pauseTracking()</slot>
+ </slots>
+</ui>

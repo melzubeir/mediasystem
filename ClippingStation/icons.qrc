@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>icons/open.png</file>
+        <file>icons/rotate-left.png</file>
+        <file>icons/rotate-right.png</file>
+        <file>icons/version.png</file>
+        <file>icons/firstpage.png</file>
+        <file>icons/lastpage.png</file>
+        <file>icons/next.png</file>
+        <file>icons/previous.png</file>
+        <file>icons/zoomout.png</file>
+        <file>icons/zoomin.png</file>
+        <file>icons/find.png</file>
+        <file>icons/resetzoom.png</file>
+        <file>icons/ok.png</file>
+        <file>icons/select.png</file>
+        <file>icons/cancel.png</file>
+        <file>icons/pageremove.png</file>
+        <file>icons/pageadd.png</file>
+        <file>icons/red_circle.png</file>
+        <file>icons/green_circle.png</file>
+        <file>icons/green_selection.png</file>
+        <file>icons/red_selection.png</file>
+        <file>icons/yellow_circle.png</file>
+        <file>icons/no_icon.png</file>
+        <file>icons/gray_circle.png</file>
+    </qresource>
+</RCC>

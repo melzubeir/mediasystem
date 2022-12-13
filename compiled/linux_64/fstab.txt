@@ -1,0 +1,1 @@
+//10.0.0.8/filestow	/mnt/filestow	cifs	rw,user,auto,exec,uid=ALLCONTENT,gid=staff,username=ems,password=	0	0
