@@ -20,7 +20,7 @@
 #ifndef DROPPEDITEMZOOMDIALOG_H
 #define DROPPEDITEMZOOMDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 #include "droppeditem.h"
 

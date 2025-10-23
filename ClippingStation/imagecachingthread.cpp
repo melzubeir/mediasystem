@@ -51,7 +51,7 @@ void ImageCachingThread::run()
         while( !m_imageCacheDlg.m_resume )
             return;
 
-        //qDebug() << "Copying " << m_srcFiles[i].toAscii();
+        //qDebug() << "Copying " << m_srcFiles[i].toLocal8Bit();
 
         if (m_imageCacheDlg.m_cachedImages[ m_dstPath+m_dstFiles[i] ] )
         {
@@ -92,7 +92,7 @@ bool ImageCachingThread::cacheFromFtpServer(QString srcPage, QString dstPage)
 
     char strerror[256];
 
-    bool ret = download(curlhandle, srcPage.toAscii(), dstPage.toAscii(), 0, 1, strerror);
+    bool ret = download(curlhandle, srcPage.toLocal8Bit(), dstPage.toLocal8Bit(), 0, 1, strerror);
 
     curl_easy_cleanup(curlhandle);
     curl_global_cleanup();

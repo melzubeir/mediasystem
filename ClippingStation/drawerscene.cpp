@@ -26,7 +26,7 @@
 #include <QPrinter>
 #include <QImage>
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 
 #include "constants.h"
 
@@ -87,7 +87,7 @@ QImage DrawerScene::screenShot()
     m_pageItem->hideMargins();
     m_pageItem->unselectItems();
 
-    int dpi = QApplication::desktop()->logicalDpiX();
+    int dpi = QApplication::primaryScreen()->logicalDotsPerInchX();
     int w = static_cast<int> (dpi * A4_WIDTH);
     int h = static_cast<int> (dpi * A4_HEIGHT);
     //int w = 827;
@@ -101,7 +101,7 @@ QImage DrawerScene::screenShot()
     setBackgroundBrush(Qt::white);
     painter.setBackgroundMode(Qt::TransparentMode);
     painter.setBackground(Qt::white);
-    painter.setRenderHint(QPainter::HighQualityAntialiasing);
+    painter.setRenderHint(QPainter::Antialiasing);
 
     //QRect rec = m_pageItem->boundingRect().toRect();
     //rec.setX(rec.x() - 20);

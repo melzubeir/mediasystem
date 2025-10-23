@@ -39,7 +39,7 @@ public:
     Section(int id, QString name); //QSqlDatabase masterDb, QSqlDatabase slaveDb);
 
 
-    bool operator == (const Section &section);
+    bool operator == (const Section &section) const;
 
     //! \fn sectionNames()
     //!     returns a list of sections in the database

@@ -21,8 +21,9 @@
 #ifndef CLIPPINGSTATION_H
 #define CLIPPINGSTATION_H
 
-#include <QtGui>
+#include <QtWidgets>
 #include <QtSql>
+#include <QMainWindow>
 #include <QModelIndex>
 
 #include "user.h"

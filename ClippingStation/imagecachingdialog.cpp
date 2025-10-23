@@ -82,7 +82,7 @@ bool ImageCachingDialog::createCacheDirectory(QString dstPath)
 bool ImageCachingDialog::recursiveDelete(const QDir &dir)
 {
     QString abspath =  dir.absolutePath();
-    qDebug() <<abspath.toAscii();
+    qDebug() <<abspath.toLocal8Bit();
 
     //QList<QFileInfo> infLst = dir.entryInfoList(QStringList("*.jpg"), QDir::NoSymLinks);
     QStringList flist = dir.entryList(QStringList("*.jpg"), QDir::NoSymLinks | QDir::Files );

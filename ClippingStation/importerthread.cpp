@@ -171,7 +171,7 @@ void ImporterThread::upload()
 
         //do the actual upload process
         //first we upload the 96 dpi, then we upload the 300 dpi
-        if (!::upload(curlhandle, QString(m_dstPath + m_dstFiles[i]).toAscii(), image96DpiFilePath.toAscii(), 0, 1, strerror))
+        if (!::upload(curlhandle, QString(m_dstPath + m_dstFiles[i]).toLocal8Bit(), image96DpiFilePath.toLocal8Bit(), 0, 1, strerror))
         {
             //if error happens, then set the apropriate values for the calling object, and exit the thread
             QString errMsg(strerror);
@@ -188,7 +188,7 @@ void ImporterThread::upload()
                 QFileInfo f2(QString(m_srcPath + m_srcFiles[i]));    //get the current files size
                 m_dlg.m_currentFileSize = f2.size();
 
-                if (!::upload(curlhandle, QString(m_dstPath + m_dstFiles[i]).toAscii(), QString(m_srcPath + m_srcFiles[i]).toAscii(), 0, 1, strerror))
+                if (!::upload(curlhandle, QString(m_dstPath + m_dstFiles[i]).toLocal8Bit(), QString(m_srcPath + m_srcFiles[i]).toLocal8Bit(), 0, 1, strerror))
                 {
                     //if error happens, then set the apropriate values for the calling object, and exit the thread
                     QString errMsg(strerror);

@@ -67,7 +67,7 @@ void Article::updateImageCutouts(QSqlDatabase &database, QList<ImageCutout *> cu
     query.bindValue(":id_article", m_id);
     if(!query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
     }
 
@@ -119,7 +119,7 @@ void Article::updateTags(QSqlDatabase &database, QList<Tag> &tags, bool isArabic
 
             if(!query.exec() )
             {
-                qDebug() << query.lastError().text().toAscii();
+                qDebug() << query.lastError().text().toLocal8Bit();
                 qDebug() << "\t...." << query.lastError().databaseText();
             }
         }
@@ -133,7 +133,7 @@ void Article::updateTags(QSqlDatabase &database, QList<Tag> &tags, bool isArabic
 
             if(!query.exec() )
             {
-                qDebug() << query.lastError().text().toAscii();
+                qDebug() << query.lastError().text().toLocal8Bit();
                 qDebug() << "\t...." << query.lastError().databaseText();
             }
         }
@@ -154,7 +154,7 @@ void Article::updateTags(QSqlDatabase &database, QList<Tag> &tags, bool isArabic
 
             if(!query.exec() )
             {
-                qDebug() << query.lastError().text().toAscii();
+                qDebug() << query.lastError().text().toLocal8Bit();
                 qDebug() << "\t...." << query.lastError().databaseText();
             }
         }
@@ -196,7 +196,7 @@ void Article::updateImagesNumber(QSqlDatabase &database, int images_number)
 
     if(!query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
     }
 }
@@ -210,7 +210,7 @@ void Article::updateImagesNumber(QSqlDatabase &database, int articleId, int imag
 
     if(!query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
     }
 }
@@ -240,7 +240,7 @@ void Article::updateStatus(QSqlDatabase &database, int status)
     query.bindValue(":id_article"       , m_id);
 
     if ( !query.exec() )
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
 }
 
 void Article::updateStatus(QSqlDatabase &database, int articleId, int status)
@@ -252,7 +252,7 @@ void Article::updateStatus(QSqlDatabase &database, int articleId, int status)
     query.bindValue(":id_article"       , articleId);
 
     if ( !query.exec() )
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
 
     qDebug("end of updateStatus() for article %d", articleId);
 }
@@ -269,7 +269,7 @@ void Article::updateHeadline(QSqlDatabase &database, int id, QString headline, b
     query.bindValue(":id_article", id);
 
     if ( !query.exec() )
-        qDebug() << "updateHeadline() error: " << query.lastError().text().toAscii();
+        qDebug() << "updateHeadline() error: " << query.lastError().text().toLocal8Bit();
 }
 
 
@@ -282,7 +282,7 @@ void Article::updateText(QSqlDatabase &database, int id, QString text)
 
     if ( !query.exec() )
     {
-        qDebug() << "updateText() error: " << query.lastError().text().toAscii();
+        qDebug() << "updateText() error: " << query.lastError().text().toLocal8Bit();
         qDebug() << "text is " << text;
     }
 }
@@ -295,7 +295,7 @@ void Article::deleteArticle(QSqlDatabase &database)
 
     if ( !query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
     }
 
@@ -304,7 +304,7 @@ void Article::deleteArticle(QSqlDatabase &database)
 
     if ( !query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
     }
 
@@ -313,7 +313,7 @@ void Article::deleteArticle(QSqlDatabase &database)
 
     if ( !query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
     }
 
@@ -415,7 +415,7 @@ bool Article::updateArticle(QSqlDatabase &database, Publication &publication, QL
 
     if(!queryMaster.exec())
     {
-        qDebug() << "Sql Error (updateArticle): " << queryMaster.lastError().text().toAscii();
+        qDebug() << "Sql Error (updateArticle): " << queryMaster.lastError().text().toLocal8Bit();
         return false;
     }
 
@@ -602,7 +602,7 @@ int Article::clip(QSqlDatabase &database, Publication &publication, int created_
 
     if(!queryMaster.exec())
     {
-        qDebug() << queryMaster.lastQuery().toAscii();
+        qDebug() << queryMaster.lastQuery().toLocal8Bit();
         //QMessageBox::critical(this, tr("SQL Error"), queryMaster.lastError().databaseText());
         return -1;
     }
@@ -657,7 +657,7 @@ void Article::getSize(Publication &publication, qreal image_size, qreal &size_l,
 
             //tmpsize += (size_w * size_l);
             qreal tmpsize = (width * height) / image_size;
-            //qDebug() << cutoutsList[i]->pageName().toAscii();
+            //qDebug() << cutoutsList[i]->pageName().toLocal8Bit();
             //qDebug("\t%.2f", tmpsize);
 
             if(!tmpCount.contains(cutoutsList[i]->pageName()) )
@@ -760,7 +760,7 @@ void Article::setCippingCoordinates(QSqlDatabase &database, int id_article, QLis
 
         if (!query.exec())
         {
-            qDebug() << "Error (clipping coordinates): "<< query.lastError().databaseText().toAscii();
+            qDebug() << "Error (clipping coordinates): "<< query.lastError().databaseText().toLocal8Bit();
         }
     }
 }

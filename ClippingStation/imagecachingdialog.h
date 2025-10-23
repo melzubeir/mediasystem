@@ -20,7 +20,7 @@
 #ifndef IMAGECACHINGDIALOG_H
 #define IMAGECACHINGDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <QTimer>
 #include <QKeyEvent>
 

@@ -167,23 +167,27 @@ int download(CURL* curlhandle, const char * remotepath, const char * localpath,
 }
 
 
-void MyOutputHandler(QtMsgType type, const char *msg) {
+void MyOutputHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+    Q_UNUSED(context)
     if(!g_debug)
         return;
 
     switch (type) {
         case QtDebugMsg:
-            g_logfile << QTime::currentTime().toString().toAscii().data() << " Debug: \t" << msg << "\n";
+            g_logfile << QTime::currentTime().toString().toLocal8Bit().data() << " Debug: \t" << msg.toLocal8Bit().data() << "\n";
             break;
         case QtCriticalMsg:
-            g_logfile << QTime::currentTime().toString().toAscii().data() << " Critical: \t" << msg << "\n";
+            g_logfile << QTime::currentTime().toString().toLocal8Bit().data() << " Critical: \t" << msg.toLocal8Bit().data() << "\n";
             break;
         case QtWarningMsg:
-            //g_logfile << QTime::currentTime().toString().toAscii().data() << " Warning: \t" << msg << "\n";
+            //g_logfile << QTime::currentTime().toString().toLocal8Bit().data() << " Warning: \t" << msg.toLocal8Bit().data() << "\n";
             break;
         case QtFatalMsg:
-            g_logfile << QTime::currentTime().toString().toAscii().data() <<  " Fatal: \t" << msg << "\n";
+            g_logfile << QTime::currentTime().toString().toLocal8Bit().data() <<  " Fatal: \t" << msg.toLocal8Bit().data() << "\n";
             abort();
+        case QtInfoMsg:
+            g_logfile << QTime::currentTime().toString().toLocal8Bit().data() << " Info: \t" << msg.toLocal8Bit().data() << "\n";
+            break;
     }
 
     g_logfile.flush();

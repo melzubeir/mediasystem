@@ -21,7 +21,7 @@
 
 #include <QBrush>
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QGraphicsSceneDragDropEvent>
 #include <QMimeData>
 #include <QGraphicsScene>
@@ -42,7 +42,7 @@ PageItem::PageItem(const QString & paperFormat, bool isfirst) :
         return; // error ! by now we don't support others page format !
 
     // we compute pixels dimensions for the page.
-    int dpi = QApplication::desktop()->logicalDpiX();
+    int dpi = QApplication::primaryScreen()->logicalDotsPerInchX();
     m_pageWidth = dpi * A4_WIDTH;
     m_pageHeight = dpi * A4_HEIGHT;
 
@@ -202,7 +202,7 @@ void PageItem::setPixmap(const QPixmap &pix)
 
 int PageItem::cutoutsCount()
 {
-    QList<QGraphicsItem*> list = this->children();
+    QList<QGraphicsItem*> list = this->childItems();
 
     int count = childItems().count() - 5;   //5 is for the margin items
     if(m_isFirstPage)

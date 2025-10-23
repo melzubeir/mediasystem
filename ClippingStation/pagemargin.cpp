@@ -20,8 +20,8 @@
 #include "pagemargin.h"
 
 #include <QPen>
-#include <QDesktopWidget>
 #include <QApplication>
+#include <QScreen>
 #include <QGraphicsLineItem>
 
 #include "constants.h"
@@ -31,7 +31,7 @@ PageMargin::PageMargin(bool isfirst,QGraphicsRectItem * parent)
        :     QGraphicsRectItem(parent)
 {
     // we compute pixels dimensions for the page.
-    int dpi = QApplication::desktop()->logicalDpiX();
+    int dpi = QApplication::primaryScreen()->logicalDotsPerInchX();
     qreal pageWidth = dpi * A4_WIDTH;
     qreal pageHeight = dpi * A4_HEIGHT;
 

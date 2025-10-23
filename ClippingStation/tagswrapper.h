@@ -20,8 +20,9 @@
 #ifndef TAGSWRAPPER_H
 #define TAGSWRAPPER_H
 
-#include <QtGui>
+#include <QtWidgets>
 #include <QtSql>
+#include <QTreeWidget>
 #include <QModelIndex>
 
 #include "tag.h"

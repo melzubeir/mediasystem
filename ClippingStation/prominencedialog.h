@@ -20,7 +20,7 @@
 #ifndef PROMINENCEDIALOG_H
 #define PROMINENCEDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "prominence.h"
 
 namespace Ui {

@@ -49,7 +49,7 @@ public:
     //! \fn operator ==()
     //!     comparison operator
     //! \author elzubeir
-    bool operator == (const Tag& right);
+    bool operator == (const Tag& right) const;
 
     //! \fn id()
     //! \return string holding the tag id

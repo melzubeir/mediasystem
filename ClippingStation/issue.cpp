@@ -19,6 +19,7 @@
 
 #include "issue.h"
 #include "imagecutout.h"
+#include <QRegularExpression>
 
 Issue::Issue(int id, QString date, int publication_id) : m_id(id)
         , m_date(date), m_publicationId(publication_id)
@@ -403,7 +404,7 @@ void Issue::addImageCutoutsToSections(QSqlDatabase &database, QStandardItem *iss
             QModelIndex     pageIndex   = model->index(k, 0, sectionIndex);
             QStandardItem   *pageItem   = model->itemFromIndex(pageIndex);
             QString         pagename    = pageIndex.data(Qt::DisplayRole).toString();
-            pagename = QString("%1.jpg").arg(pagename.remove(QRegExp("[^\\d]")), 4, QChar('0'));
+            pagename = QString("%1.jpg").arg(pagename.remove(QRegularExpression("[^\\d]")), 4, QChar('0'));
 
             pageItem->removeRows(0, pageItem->rowCount() );
 
@@ -569,7 +570,7 @@ void Issue::markIssueAsDone(QSqlDatabase &database, bool isDone, int userId)
 
     if(!query.exec())
     {
-        qDebug() << "markIssueAsDone() SQL Error: " << query.lastError().databaseText().toAscii();
+        qDebug() << "markIssueAsDone() SQL Error: " << query.lastError().databaseText().toLocal8Bit();
         return;
     }
 }

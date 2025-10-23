@@ -211,7 +211,7 @@ QImage ImageCutout::createCutout() const
     {
         // after calculating the pixmap, we rotate it if needed
         QImage image = px.toImage();
-        QMatrix mx;
+        QTransform mx;
         mx = mx.rotate(m_rotationAngle);
         //  mx = mx.scale(.5, .5);  //dont do this
         image = image.transformed(mx);

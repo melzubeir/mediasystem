@@ -20,7 +20,7 @@
 #ifndef PAGETEXTDIALOG_H
 #define PAGETEXTDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 namespace Ui {
     class PageTextDialog;

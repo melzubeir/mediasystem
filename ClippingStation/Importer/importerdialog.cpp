@@ -2,6 +2,8 @@
 //! \brief the implementation of the class
 #include <QtGui>
 #include <QtGlobal> //Q_WS_WIN
+#include <QCompleter>
+#include <QFileDialog>
 
 #include "importerdialog.h"
 #include "imageoutputformatdialog.h"
@@ -621,7 +623,7 @@ void ImporterDialog::updateDatabase()
         queryMaster.bindValue(":id", id_publication_issue);
         if( !queryMaster.exec() )
         {
-            qDebug() << "update publication issue: " << queryMaster.lastQuery().toAscii();
+            qDebug() << "update publication issue: " << queryMaster.lastQuery().toLocal8Bit();
             qDebug() << "user id: " << m_user.id();
         }
 
@@ -660,7 +662,7 @@ void ImporterDialog::updateDatabase()
         if( !queryMaster.exec())
         {
             QMessageBox::critical(this, tr("SQL Error"), queryMaster.lastError().databaseText());
-            qDebug() << "issue_sections insert query error: " << queryMaster.lastQuery().toAscii();
+            qDebug() << "issue_sections insert query error: " << queryMaster.lastQuery().toLocal8Bit();
             ui->importButton->setEnabled(true);
             setEnabled(true);
             return;

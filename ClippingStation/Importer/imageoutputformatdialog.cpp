@@ -2,6 +2,7 @@
 
 #include "imageoutputformatdialog.h"
 #include "ui_imageoutputformatdialog.h"
+#include <QRegularExpression>
 
 ImageOutputFormatDialog::ImageOutputFormatDialog(QWidget *parent, QStringList list, bool keeppagenumber, int startpagenumber) :
     QDialog(parent),
@@ -19,7 +20,7 @@ ImageOutputFormatDialog::ImageOutputFormatDialog(QWidget *parent, QStringList li
         {
             QString name = list[i];
             //the newName value will be stripped down from all NON numeric character, and will output the name in the format dddd.jpg, where d is digit (0-9)
-            QString destinationName = QString("%1.jpg").arg(name.remove(QRegExp("[^\\d]")), 4, QChar('0'));
+            QString destinationName = QString("%1.jpg").arg(name.remove(QRegularExpression("[^\\d]")), 4, QChar('0'));
             outputFileNames << destinationName;
         }
     }

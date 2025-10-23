@@ -114,7 +114,7 @@ void FullPageScene::addTagCoordinates(QList<TagCoordinates> &tagH)
             pt2 += m_imageItem->pos();
 
             QRectF rec(pt1, pt2);
-            QGraphicsRectItem *rect = new QGraphicsRectItem(rec, 0, this);
+            QGraphicsRectItem *rect = new QGraphicsRectItem(rec);
             rect->setZValue(1.1);
             rect->setPen(QPen( Qt::NoPen ) );
             rect->setBrush( brush );
@@ -271,7 +271,7 @@ bool FullPageScene::isPointIsOnImageCutoutItem(const QPointF & point)
 
     foreach (ImageCutout* rec, m_imageCutoutsList)
     {
-        if( itemAt(point) == rec)
+        if( itemAt(point, QTransform()) == rec)
         {
             m_currentImageCutout = rec;
             return true;
@@ -397,7 +397,7 @@ QImage FullPageScene::screenShot()
     QImage image(w, h, QImage::Format_ARGB32 );
 
     QPainter painter(&image);
-    painter.setRenderHint(QPainter::HighQualityAntialiasing);
+    painter.setRenderHint(QPainter::Antialiasing);
 
     foreach (ImageCutout *rect, m_imageCutoutsList)
         rect->setScreenshot(true);

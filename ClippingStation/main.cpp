@@ -17,7 +17,7 @@
  *
  ************************************************************************/
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QPluginLoader>
 
 #include "globalfunctions.h"
@@ -25,11 +25,10 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication::setGraphicsSystem("raster");
     QApplication a(argc, argv);
 
     //g_logfile.open("clippingstation.log", ios::app);
-    qInstallMsgHandler(MyOutputHandler);
+    qInstallMessageHandler(MyOutputHandler);
 
     ClippingStation w;
 

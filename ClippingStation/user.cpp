@@ -21,6 +21,7 @@
 #include <QtCore>
 #include <QtSql>
 #include <QMessageBox>
+#include <QElapsedTimer>
 
 #include "user.h"
 #include "authenticationdialog.h"
@@ -147,7 +148,7 @@ void User::track(int pageId, int publicationId, int pubIssueId, int issueSecId, 
 
 bool User::isUpdate(int pageId)
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     QSqlQuery query(m_slaveDatabase);
@@ -159,13 +160,8 @@ bool User::isUpdate(int pageId)
     {
         qDebug() << "isUpdate query error: " << query.lastError().text();
         qDebug() << "query: " << query.lastQuery();
-        QMapIterator<QString, QVariant> i(query.boundValues());
-        while (i.hasNext())
-        {
-            i.next();
-            qDebug() << i.key().toAscii().data() << ": "
-                << i.value().toString().toAscii().data() << endl;
-        }
+        // Note: query.boundValues() API changed in Qt 6
+        // qDebug() << "Bound values: " << query.boundValues();
         return false;
     }
 
@@ -175,13 +171,8 @@ bool User::isUpdate(int pageId)
 
     qDebug("isUpdate(): Time elapsed: %.6f s", t.elapsed()/1000.0 );
     qDebug() << "query: " << query.lastQuery();
-    QMapIterator<QString, QVariant> i(query.boundValues());
-    while (i.hasNext())
-    {
-        i.next();
-        qDebug() << i.key().toAscii().data() << ": "
-            << i.value().toString().toAscii().data() << endl;
-    }
+    // Note: query.boundValues() API changed in Qt 6
+    // qDebug() << "Bound values: " << query.boundValues();
 
     if(ret)
         qDebug() << "isUpdate returned true";
@@ -196,7 +187,7 @@ bool User::isUpdate(int pageId)
 
 void User::updateTrack(int pageId, double seconds)
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     QSqlQuery query(m_masterDatabase);
@@ -209,25 +200,15 @@ void User::updateTrack(int pageId, double seconds)
     {
         qDebug() << "updateTrack query error: " << query.lastError().text();
         qDebug() << "query: " << query.lastQuery();
-        QMapIterator<QString, QVariant> i(query.boundValues());
-        while (i.hasNext())
-        {
-            i.next();
-            qDebug() << i.key().toAscii().data() << ": "
-                << i.value().toString().toAscii().data() << endl;
-        }
+        // Note: query.boundValues() API changed in Qt 6
+        // qDebug() << "Bound values: " << query.boundValues();
         return;
     }
 
     qDebug("updateTrack(): Time elapsed: %.6f s", t.elapsed()/1000.0 );
     qDebug() << "query: " << query.lastQuery();
-    QMapIterator<QString, QVariant> i(query.boundValues());
-    while (i.hasNext())
-    {
-        i.next();
-        qDebug() << i.key().toAscii().data() << ": "
-            << i.value().toString().toAscii().data() << endl;
-    }
+    // Note: query.boundValues() API changed in Qt 6
+    // qDebug() << "Bound values: " << query.boundValues();
     qDebug() << "end of updateTrack()";
 
 }
@@ -252,7 +233,7 @@ void User::insertTrack(int pageId, int publicationId, int pubIssueId, int issueS
     ------------------------
     */
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     QSqlQuery query(m_masterDatabase);
@@ -276,23 +257,13 @@ void User::insertTrack(int pageId, int publicationId, int pubIssueId, int issueS
     {
         qDebug() << "insertTrack query error: " << query.lastError().text();
         qDebug() << "query: " << query.lastQuery();
-        QMapIterator<QString, QVariant> i(query.boundValues());
-        while (i.hasNext())
-        {
-            i.next();
-            qDebug() << i.key().toAscii().data() << ": "
-                << i.value().toString().toAscii().data() << endl;
-        }
+        // Note: query.boundValues() API changed in Qt 6
+        // qDebug() << "Bound values: " << query.boundValues();
         return;
     }
     qDebug("insertTrack(): Time elapsed: %.6f s", t.elapsed()/1000.0 );
     qDebug() << "query: " << query.lastQuery();
-    QMapIterator<QString, QVariant> i(query.boundValues());
-    while (i.hasNext())
-    {
-        i.next();
-        qDebug() << i.key().toAscii().data() << ": "
-            << i.value().toString().toAscii().data() << endl;
-    }
+    // Note: query.boundValues() API changed in Qt 6
+    // qDebug() << "Bound values: " << query.boundValues();
     qDebug() << "end of insertTrack()";
 }

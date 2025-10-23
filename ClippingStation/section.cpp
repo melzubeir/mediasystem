@@ -27,7 +27,7 @@ Section::Section(int id, QString name): m_id(id), m_name(name)
 {
 }
 
-bool Section::operator == (const Section &section)
+bool Section::operator == (const Section &section) const
 {
     return (this->m_name == section.m_name);
 }
@@ -137,7 +137,7 @@ QString Section::name()
 
 void Section::setFiles(QStringList localFiles, QStringList remoteFiles)
 {
-//    qDebug() << "Section name: " << m_name.toAscii();
+//    qDebug() << "Section name: " << m_name.toLocal8Bit();
     m_localFiles = localFiles;
     m_remoteFiles= remoteFiles;
 }
@@ -178,9 +178,9 @@ void Section::getFilesAndPaths(QStringList &imagesList, QString &filesRemotePath
 */
 void Section::getLocalAndRemoteFiles(QStringList &localFiles, QStringList &remoteFiles)
 {
-    //qDebug() << "Section name: " << m_name.toAscii();
+    //qDebug() << "Section name: " << m_name.toLocal8Bit();
     localFiles = m_localFiles;
     remoteFiles= m_remoteFiles;
-    //qDebug() << "filename: " << m_localFiles[0].toAscii();
+    //qDebug() << "filename: " << m_localFiles[0].toLocal8Bit();
 
 }

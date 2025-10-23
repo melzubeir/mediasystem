@@ -41,7 +41,7 @@ Tag::Tag(int id, QString tag, QString arabicTag, int towrite, QString comment , 
 }
 
 
-bool Tag::operator == (const Tag& right)
+bool Tag::operator == (const Tag& right) const
 {
     return (m_id == right.m_id);
 }
@@ -160,8 +160,8 @@ QList<Tag> Tag::searchTags(QSqlDatabase &database, QString &searchword)
 
     if ( !query.exec() )
     {
-        qDebug() << "searchTags() SQL Error: " << query.lastError().text().toAscii();
-        qDebug() << "Executed Query: " << query.executedQuery().toAscii();
+        qDebug() << "searchTags() SQL Error: " << query.lastError().text().toLocal8Bit();
+        qDebug() << "Executed Query: " << query.executedQuery().toLocal8Bit();
         return QList<Tag> ();
     }
 
@@ -198,15 +198,15 @@ QList<Tag> Tag::searchTags(QSqlDatabase &database, QList<int> &tagIds)
 
         //ids += QString("%1").arg(tagIds[tagIds.count()-1]);
 
-        //qDebug() << "searchTags IDS " << ids.toAscii();
+        //qDebug() << "searchTags IDS " << ids.toLocal8Bit();
 
         query.prepare("SELECT id_company, name_company, desc_company, towrite FROM company WHERE id_company  = :id");
         query.bindValue(":id", tagIds[i]);
 
         if ( !query.exec() )
         {
-            qDebug() << "searchTags() SQL Error: " << query.lastError().text().toAscii();
-            qDebug() << "Executed Query: " << query.executedQuery().toAscii();
+            qDebug() << "searchTags() SQL Error: " << query.lastError().text().toLocal8Bit();
+            qDebug() << "Executed Query: " << query.executedQuery().toLocal8Bit();
             return QList<Tag> ();
         }
 
@@ -237,8 +237,8 @@ QString Tag::loadSearchwords(QSqlDatabase& database, QString keyword)
 
     if ( !query.exec() )
     {
-        qDebug() << "loadSearchwords() SQL Error: " << query.lastError().text().toAscii();
-        qDebug() << "Executed Query: " << query.executedQuery().toAscii();
+        qDebug() << "loadSearchwords() SQL Error: " << query.lastError().text().toLocal8Bit();
+        qDebug() << "Executed Query: " << query.executedQuery().toLocal8Bit();
         return "";
     }
 
@@ -260,12 +260,12 @@ QList<Tag> Tag::loadArticleTags(QSqlDatabase &database, int articleId)
 
     if ( !query.exec() )
     {
-        qDebug() << "Error: loadArticleTags() SQL Error: " << query.lastError().text().toAscii();
-        qDebug() << "Executed Query: " << query.executedQuery().toAscii();
+        qDebug() << "Error: loadArticleTags() SQL Error: " << query.lastError().text().toLocal8Bit();
+        qDebug() << "Executed Query: " << query.executedQuery().toLocal8Bit();
         return QList<Tag> ();
     }
 
-    //qDebug() << query.executedQuery().toAscii();
+    //qDebug() << query.executedQuery().toLocal8Bit();
 
     QList<Tag> list;
 
@@ -302,7 +302,7 @@ void Tag::setArticleTags(QSqlDatabase &database, int articleId, QList<Tag> &tags
 
         if(!query.exec() )
         {
-            qDebug() << query.lastError().text().toAscii();
+            qDebug() << query.lastError().text().toLocal8Bit();
             qDebug() << "\t...." << query.lastError().databaseText();
         }
     }
@@ -334,8 +334,8 @@ void Tag::loadTagProminence(QSqlDatabase& database, QList<Tag>& tags, int articl
 
         if ( !query.exec() )
         {
-            qDebug() << "Error: loadTagProminence() SQL Error: " << query.lastError().text().toAscii();
-            qDebug() << "Executed Query: " << query.executedQuery().toAscii();
+            qDebug() << "Error: loadTagProminence() SQL Error: " << query.lastError().text().toLocal8Bit();
+            qDebug() << "Executed Query: " << query.executedQuery().toLocal8Bit();
             continue;
         }
 

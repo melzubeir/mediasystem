@@ -3,7 +3,7 @@
 #ifndef IMPORTERDIALOG_H
 #define IMPORTERDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <QtSql>
 
 #include <curl/curl.h>

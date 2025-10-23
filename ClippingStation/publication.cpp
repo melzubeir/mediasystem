@@ -22,6 +22,7 @@
 #include "issue.h"
 #include "constants.h"
 #include "systemconfiguration.h"
+#include <QElapsedTimer>
 
 Publication::Publication()
 {
@@ -165,7 +166,7 @@ void Publication::loadIssues(QTreeView *view, QString localcachDir)
 
     query.bindValue(":id", m_id);
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
     if(!query.exec())
     {
@@ -310,13 +311,13 @@ void Publication::loadFilteredIssues(QTreeView *view, QSqlDatabase &ocrDatabase,
             else
             {
                 qDebug() << "ocr query      : " << ocr;
-                qDebug() << "ocr query error: " << query.lastError().text().toAscii();
+                qDebug() << "ocr query error: " << query.lastError().text().toLocal8Bit();
             }
         }
         else
         {
             qDebug() << "id_company query      : " << kywrd;
-            qDebug() << "id_company query error: " << query.lastError().text().toAscii();
+            qDebug() << "id_company query error: " << query.lastError().text().toLocal8Bit();
         }
         ptcWhere = QString(" AND sp.section_pages IN (%1)").arg(section_pages.join(", "));
     }
@@ -357,10 +358,10 @@ void Publication::loadFilteredIssues(QTreeView *view, QSqlDatabase &ocrDatabase,
                           " group by name_publication_en, issue_date, name_article_section_en, page_name"
                           " order by name_publication_en, issue_date, id_section, page_name;").arg(ocrTable).arg(ptcTable).arg(m_id).arg(ptcWhere).arg(parts);
 
-    qDebug() << "loadFilteredIssues() query is " << str.toAscii() ;
+    qDebug() << "loadFilteredIssues() query is " << str.toLocal8Bit() ;
     QSqlQuery query(str, m_database);
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
     if(!query.exec())
     {
@@ -518,7 +519,7 @@ void Publication::loadIssuesOnly(QTreeView *view)
 
     query.bindValue(":id", m_id);
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
     if(!query.exec())
     {
@@ -671,7 +672,7 @@ void Publication::loadUndoneIssuesOnly(QTreeView *view)
 
     query.bindValue(":id", m_id);
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
     if(!query.exec())
     {
@@ -719,7 +720,7 @@ void Publication::loadIssueSections(QStandardItem *issueItem, QString issueDate,
     query.bindValue(":issue_date", issueDate);
 
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
     if(!query.exec())
     {
@@ -766,7 +767,7 @@ QList<QStandardItem*> Publication::getFilenamesFromDatabase(int id_publication, 
                                                             QStringList &localFiles, QStringList &remoteFiles,
                                                             QString &localIssuePath, QString &remoteIssuePath)
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     static QString issuesPath = SystemConfiguration::issuesPath();
@@ -925,7 +926,7 @@ QStringList Publication::publicationsWithPreclips(QSqlDatabase &database)
 
     if ( !query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         qDebug() << "\t...." << query.lastError().databaseText();
         return QStringList();
     }
@@ -1026,13 +1027,13 @@ QStringList Publication::publicationsFiltered(QSqlDatabase &database, QSqlDataba
             else
             {
                 qDebug() << "ocr query      : " << ocr;
-                qDebug() << "ocr query error: " << query.lastError().text().toAscii();
+                qDebug() << "ocr query error: " << query.lastError().text().toLocal8Bit();
             }
         }
         else
         {
             qDebug() << "id_company query      : " << kywrd;
-            qDebug() << "id_company query error: " << query.lastError().text().toAscii();
+            qDebug() << "id_company query error: " << query.lastError().text().toLocal8Bit();
         }
         ptcWhere = QString(" AND sp.section_pages IN (%1)").arg(section_pages.join(", "));
     }
@@ -1081,12 +1082,12 @@ QStringList Publication::publicationsFiltered(QSqlDatabase &database, QSqlDataba
                           " group by name_publication_en"
                           " order by name_publication_en").arg(ocrTable).arg(ptcWhere).arg(parts);
 
-    qDebug() << "publicationsFiltered query is \n" << str.toAscii() ;
+    qDebug() << "publicationsFiltered query is \n" << str.toLocal8Bit() ;
     QSqlQuery query(str, database);
 
     if ( !query.exec() )
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         return QStringList();
     }
 
@@ -1111,7 +1112,7 @@ QStringList Publication::publicationsWithUndoneIssues(QSqlDatabase &database)
 
     if(!query.exec())
     {
-        qDebug() << "publicationsWithUndoneIssues() SQL Error: " << query.lastError().databaseText().toAscii();
+        qDebug() << "publicationsWithUndoneIssues() SQL Error: " << query.lastError().databaseText().toLocal8Bit();
         return QStringList();
     }
 

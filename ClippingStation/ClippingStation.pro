@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-08-20T00:31:05
 # -------------------------------------------------
-QT += sql
+QT += core gui sql widgets network concurrent printsupport
 TARGET = "Clipping Station"
 TEMPLATE = app
 SOURCES += main.cpp \
@@ -91,11 +91,11 @@ FORMS += clippingstation.ui \
     prominencedialog.ui \
     pagetextdialog.ui \
     searchpublicationlistdialog.ui
-ICON = socialhose.icns
+ICON = emediasearch.icns
 RC_FILE = ClippingStation.rc
 win32 {
-    LIBS += -L"C:\curl-7.19.6\bin\"
-    INCLUDEPATH += "C:\curl-7.19.6\include\"
+    LIBS += -L"C:\curl-7.19.6\bin\""
+    INCLUDEPATH += "C:\curl-7.19.6\include\""
 }
 LIBS += -lcurl
 RESOURCES += icons.qrc

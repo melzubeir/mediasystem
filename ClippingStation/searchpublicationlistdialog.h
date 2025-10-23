@@ -20,7 +20,7 @@
 #ifndef SEARCHPUBLICATIONLISTDIALOG_H
 #define SEARCHPUBLICATIONLISTDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 namespace Ui {
     class SearchPublicationListDialog;

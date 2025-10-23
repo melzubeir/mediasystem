@@ -23,6 +23,8 @@
 #include <QtConcurrentRun>
 #include <QMutex>
 #include <QDesktopServices>
+#include <QScreen>
+#include <QRegularExpression>
 
 #include <cstdio>
 using namespace std;
@@ -49,7 +51,7 @@ It should be handled, not handled yet!
 
 */
 
-QMutex mutex;
+QMutex g_clipMutex;
 
 QString ClippingStation::m_cacheDir;
 QString ClippingStation::m_address;
@@ -805,7 +807,7 @@ void ClippingStation::onActionSendPageToOCR()
 
     QString pageName    = index                        .data(Qt::DisplayRole).toString();
     //convert pageName from Page # to ####.jpg
-    pageName = QString("%1.jpg").arg(pageName.remove(QRegExp("[^\\d]")), 4, QChar('0'));
+    pageName = QString("%1.jpg").arg(pageName.remove(QRegularExpression("[^\\d]")), 4, QChar('0'));
 
     QString sectionName = model->parent(index)         .data(Qt::DisplayRole).toString();
     QString issueDate   = model->parent(index).parent().data(Qt::DisplayRole).toString();
@@ -1016,7 +1018,7 @@ void ClippingStation::onActionViewPageText()
     QModelIndex index = list[0];
 
     QString pageName    = index                        .data(Qt::DisplayRole).toString();
-    pageName = QString("%1.jpg").arg(pageName.remove(QRegExp("[^\\d]")), 4, QChar('0'));
+    pageName = QString("%1.jpg").arg(pageName.remove(QRegularExpression("[^\\d]")), 4, QChar('0'));
 
     QString sectionName = model->parent(index)         .data(Qt::DisplayRole).toString();
     QString issueDate   = model->parent(index).parent().data(Qt::DisplayRole).toString();
@@ -1123,7 +1125,7 @@ void ClippingStation::onActionGoToKeywordWikiPage()
 
     QString keyword = index.data(Qt::DisplayRole).toString();
 
-    keyword.replace(QRegExp("\\s"), "_");
+    keyword.replace(QRegularExpression("\\s"), "_");
     keyword.replace(' ', '_');
 //    keyword.replace("'", "_");
 //    keyword.replace("-", "_");
@@ -1208,7 +1210,7 @@ void ClippingStation::loadIssuesWithPreclipsOnly()
         //load the first pre-clip
         QAbstractItemModel *model = ui->clipsTreeView->model();
         QModelIndex preclipRootIndex = model->index(0, 0, QModelIndex() );
-        QModelIndex pindex = preclipRootIndex.child(0, 0);
+        QModelIndex pindex = model->index(0, 0, preclipRootIndex);
         if(pindex.isValid())
             articleTreeViewClicked(pindex);
     }
@@ -1291,7 +1293,7 @@ void ClippingStation::loadUndoneIssuesOnly()
         //load the first pre-clip
         QAbstractItemModel *model = ui->clipsTreeView->model();
         QModelIndex preclipRootIndex = model->index(0, 0, QModelIndex() );
-        QModelIndex pindex = preclipRootIndex.child(0, 0);
+        QModelIndex pindex = model->index(0, 0, preclipRootIndex);
         if(pindex.isValid())
             articleTreeViewClicked(pindex);
     }
@@ -1322,7 +1324,7 @@ void ClippingStation::issueTreeViewItemClicked(QModelIndex index)
                 m_publication.loadIssueSections(issueItem, issueDate, m_cacheDir);
             }
 
-            QString sectionName = model->data(index.child(0,0), Qt::DisplayRole).toString();
+            QString sectionName = model->data(model->index(0, 0, index), Qt::DisplayRole).toString();
 
             if( m_currentIssueDate != issueDate)
                 ui->fullpageView->removeImageCutouts();
@@ -1470,7 +1472,7 @@ void ClippingStation::articleTreeViewClicked(QModelIndex index)
         if(index.parent() == preclipRootIndex)
         {
             id = model->index(index.row(),         1, index.parent()           ).data(Qt::DisplayRole).toInt();
-            currentIndex = index.child(0, 0);
+            currentIndex = model->index(0, 0, index);
         }
         else
         {
@@ -1559,7 +1561,7 @@ void ClippingStation::articleTreeViewClicked(QModelIndex index)
         if(index.parent() == clipRootIndex)
         {
             id = model->index(index.row(),         1, index.parent()           ).data(Qt::DisplayRole).toInt();
-            currentIndex = index.child(0, 0);
+            currentIndex = model->index(0, 0, index);
         }
         else
         {
@@ -1846,7 +1848,7 @@ void ClippingStation::saveImageRotation()
     //do the roation
     double rotate = ui->rotateSpinBox->value();
 
-    QMatrix mx;
+    QTransform mx;
     mx = mx.rotate(rotate);
     image = image.transformed(mx, Qt::SmoothTransformation);
 
@@ -2183,7 +2185,7 @@ bool ClippingStation::recursiveDelete(const QDir &dir)
         if(finfo.isDir() )
         {
             QDir subDir(finfo.absoluteFilePath());
-            qDebug() << "SubDir: " << subDir.absolutePath().toAscii();
+            qDebug() << "SubDir: " << subDir.absolutePath().toLocal8Bit();
             QDir dir1 = dir;
 
             if ( recursiveDelete(subDir) )
@@ -2191,7 +2193,7 @@ bool ClippingStation::recursiveDelete(const QDir &dir)
                 dir1.cdUp();
                 if ( !dir1.rmdir(finfo.absoluteFilePath() ) )
                 {
-                    qDebug() << "Error deleting directory: " << finfo.absoluteFilePath().toAscii();
+                    qDebug() << "Error deleting directory: " << finfo.absoluteFilePath().toLocal8Bit();
                 }
             }
         }
@@ -2450,12 +2452,12 @@ void ClippingStation::clip()
 
         if(m_useFtp)
         {
-            QFuture<bool> future = QtConcurrent::run(&saveClipImagesToFtpServer, m_currentIssueDate, m_currentPreclipId, list, true, m_masterDatabase);
+            QFuture<bool> future = QtConcurrent::run([=]() mutable { return saveClipImagesToFtpServer(m_currentIssueDate, m_currentPreclipId, list, true, m_masterDatabase); });
             m_saveClipImagesToFtpServerWatcher.setFuture(future);
         }
         else
         {
-            QFuture<int> future = QtConcurrent::run(&saveClipImagesToFileServer, m_currentIssueDate, m_currentPreclipId, list);
+            QFuture<int> future = QtConcurrent::run([=]() mutable { return saveClipImagesToFileServer(m_currentIssueDate, m_currentPreclipId, list); });
             m_saveClipImagesToFileServerWatcher.setFuture(future);            //ret = saveClipImagesToFileServer(m_currentPreclipId, list);         //save the clip images in the clip directories
             //ret = saveClipImagesToFileServer(m_currentIssueDate, m_currentPreclipId, list, true, m_masterDatabase);
         }
@@ -2464,7 +2466,7 @@ void ClippingStation::clip()
         {
             qDebug() << m_publication.name() << " not skip OCR, Insert to db";
             bool isArabic = (m_publication.language() == "Arabic");
-            QFuture<bool> future2 = QtConcurrent::run(&addTextToClip, m_currentPreclipId, cutoutsList, db, isArabic);
+            QFuture<bool> future2 = QtConcurrent::run([=]() mutable { return addTextToClip(m_currentPreclipId, cutoutsList, db, isArabic); });
             m_addTextToClipWatcher.setFuture(future2);
         }
         else
@@ -2504,12 +2506,12 @@ void ClippingStation::clip()
         bool ret = true;
         if(m_useFtp)
         {
-            QFuture<bool> future = QtConcurrent::run(&saveClipImagesToFtpServer, m_currentIssueDate, id_article, list, false, m_masterDatabase);
+            QFuture<bool> future = QtConcurrent::run([=]() mutable { return saveClipImagesToFtpServer(m_currentIssueDate, id_article, list, false, m_masterDatabase); });
             m_saveClipImagesToFtpServerWatcher.setFuture(future);
         }
         else
         {
-            QFuture<int> future = QtConcurrent::run(&saveClipImagesToFileServer, m_currentIssueDate, id_article, list);
+            QFuture<int> future = QtConcurrent::run([=]() mutable { return saveClipImagesToFileServer(m_currentIssueDate, id_article, list); });
             m_saveClipImagesToFileServerWatcher.setFuture(future);            //ret = saveClipImagesToFileServer(m_currentPreclipId, list);         //save the clip images in the clip directories
             //ret = saveClipImagesToFileServer(m_currentIssueDate, id_article, list, true, m_masterDatabase);
         }
@@ -2520,7 +2522,7 @@ void ClippingStation::clip()
             //QSqlDatabase db = m_masterDatabase.cloneDatabase(m_masterDatabase, "master2222");
             //db.open();
             bool isArabic = (m_publication.language() == "Arabic");
-            QFuture<bool> future2 = QtConcurrent::run(&addTextToClip, id_article, cutoutsList, db, isArabic);
+            QFuture<bool> future2 = QtConcurrent::run([=]() mutable { return addTextToClip(id_article, cutoutsList, db, isArabic); });
             m_addTextToClipWatcher.setFuture(future2);
         }
         else
@@ -2563,7 +2565,7 @@ void ClippingStation::clip()
         QModelIndex preclipRootIndex = model->index(0, 0, QModelIndex() );
         //if(preclipRootIndex.model()->children().count() > 0)
         {
-            QModelIndex pindex = preclipRootIndex.child(0, 0);
+            QModelIndex pindex = model->index(0, 0, preclipRootIndex);
             if(pindex.isValid())
                 articleTreeViewClicked(pindex);
             else
@@ -2719,7 +2721,7 @@ QList<QImage> ClippingStation::createClipImages()
 
 int ClippingStation::saveClipImagesToFileServer(QString currentIssue, int id_article, QList<QImage> &list)
 {
-    mutex.lock();
+    g_clipMutex.lock();
     qDebug("saveClipImages() for article %d", id_article);
     //we save the images on this format ClippingsPath/YYYY/MM/DD/ID_ARTICLE-X
 
@@ -2741,7 +2743,7 @@ int ClippingStation::saveClipImagesToFileServer(QString currentIssue, int id_art
         {
             QMessageBox::critical(0, tr("saveClipImagesToFileServer() Error"), tr("Error creating directory structure for clippings!"));
             qDebug("saveClipImagesToFileServer(): Error creating directory ");
-            mutex.unlock();
+            g_clipMutex.unlock();
             return 0;
         }
     }
@@ -2760,7 +2762,7 @@ int ClippingStation::saveClipImagesToFileServer(QString currentIssue, int id_art
         {
             QMessageBox::critical(0, tr("saveClipImagesToFileServer() Error"), tr("Error creating directory structure for local clippings!"));
             qDebug("saveClipImagesToFileServer(): Error creating directory ");
-            mutex.unlock();
+            g_clipMutex.unlock();
             return 0;
         }
     }
@@ -2809,7 +2811,7 @@ int ClippingStation::saveClipImagesToFileServer(QString currentIssue, int id_art
             file.remove(localpath +fname);    //remove it locally
             file.remove(path      +fname);    //and from file server
         }
-        mutex.unlock();
+        g_clipMutex.unlock();
         return 0;
     }
 
@@ -2866,14 +2868,14 @@ int ClippingStation::saveClipImagesToFileServer(QString currentIssue, int id_art
         Article::updateImagesNumber(m_clipDatabase, id_article, list.count());
         Article::updateStatus(m_clipDatabase, id_article, 2);
         qDebug("saveClipImages(): Everything is OK for article %d, updating the status =2 and images number = %d", id_article, list.count());
-        mutex.unlock();
+        g_clipMutex.unlock();
         return id_article;
     }
 
     //if error happens, return to preclip, if pre-clip, or delete it from clipping
     Article::updateImagesNumber(m_clipDatabase, id_article, 0);
     qDebug("saveClipImages(): Error happend for article %d. roll back to original values", id_article);
-    mutex.unlock();
+    g_clipMutex.unlock();
     return 0;
 }
 
@@ -2902,10 +2904,10 @@ bool ClippingStation::saveClipImagesToFtpServer (QString &currentIssue, int &id_
 
         if( list[i].save(tmpfilename, "jpg", 100) )
         {
-            ret = upload(curlhandle, filename.toAscii(), tmpfilename.toAscii(), 0, 3, str);
+            ret = upload(curlhandle, filename.toLocal8Bit(), tmpfilename.toLocal8Bit(), 0, 3, str);
             if(!ret)
             {
-                qDebug() << "saveClipImagesToFtpServer(): Error uploading image " << filename.toAscii() << ": " << str;
+                qDebug() << "saveClipImagesToFtpServer(): Error uploading image " << filename.toLocal8Bit() << ": " << str;
                 QFile::remove(tmpfilename);
                 saveClipImagesToFtpServerErrorMsg = str;
                 ret = false;
@@ -2928,10 +2930,10 @@ bool ClippingStation::saveClipImagesToFtpServer (QString &currentIssue, int &id_
 
         if( m_thumbnail.save(tmpfilename, "jpg", 100) )
         {
-            ret = upload(curlhandle, filename.toAscii(), tmpfilename.toAscii(), 0, 3, str);
+            ret = upload(curlhandle, filename.toLocal8Bit(), tmpfilename.toLocal8Bit(), 0, 3, str);
             if(!ret)
             {
-                qDebug() << "saveClipImagesToFtpServer(): Error uploading image " << filename.toAscii() << ": " << str;
+                qDebug() << "saveClipImagesToFtpServer(): Error uploading image " << filename.toLocal8Bit() << ": " << str;
                 QFile::remove(tmpfilename);
                 saveClipImagesToFtpServerErrorMsg = str;
                 //ret = false;
@@ -3223,9 +3225,9 @@ void ClippingStation::loadClippingImages(int clipid)
         if(m_useFtp)
         {
             QString file = path+ tmpfilename;
-            if (!download(curlhandle, file.toAscii(), tmpfilename.toAscii(), 0, 3, str))
+            if (!download(curlhandle, file.toLocal8Bit(), tmpfilename.toLocal8Bit(), 0, 3, str))
             {
-                qDebug() << "loadClippingImages(): Error loading image " << file.toAscii() << ": " << str;
+                qDebug() << "loadClippingImages(): Error loading image " << file.toLocal8Bit() << ": " << str;
                 QMessageBox::critical(this, "error loading clip", QString("Ftp Error (%1) : %2").arg(file).arg(str) );
             }
             else
@@ -3280,7 +3282,7 @@ void ClippingStation::orderCutoutsSelections()
 
 void ClippingStation::addMargintoPos(QPointF &pos, bool isfirst)
 {
-    int dpi = QApplication::desktop()->logicalDpiX();
+    int dpi = QApplication::primaryScreen()->logicalDotsPerInchX();
 
     MarginValues mv;
     if(isfirst)
@@ -3306,14 +3308,14 @@ void ClippingStation::orderList(QList<ImageCutout*> &cutouts)
                 min = j;
         }
         if(min != i)
-            cutouts.swap(i, min);
+            cutouts.swapItemsAt(i, min);
     }
 }
 
 QSizeF ClippingStation::A4CellSize(bool isfirst)
 {
     // we compute pixels dimensions for the page.
-    int dpi = QApplication::desktop()->logicalDpiX();
+    int dpi = QApplication::primaryScreen()->logicalDotsPerInchX();
     qreal pageWidth = dpi * A4_WIDTH;
     qreal pageHeight = dpi * A4_HEIGHT;
 
@@ -3450,7 +3452,7 @@ bool ClippingStation::calculatePosAndScale(QSizeF cellSize, QImage &img, int typ
                             QString str;
                             for(int j=0; j< 20; j++)
                                 str += QString("%1").arg(cells[i][j]) + " ";
-                            qDebug() << str.toAscii();
+                            qDebug() << str.toLocal8Bit();
                         }
                         qDebug("*****************************************************");
                         */
@@ -3540,7 +3542,7 @@ bool ClippingStation::calculatePosAndScale(QSizeF cellSize, QImage &img, int typ
                             QString str;
                             for(int j=0; j< 20; j++)
                                 str += QString("%1").arg(cells[i][j]) + " ";
-                            qDebug() << str.toAscii();
+                            qDebug() << str.toLocal8Bit();
                         }
                         qDebug("*****************************************************");
                         */
@@ -3591,7 +3593,7 @@ bool ClippingStation::isImageLocked(QString image, int &lockedBy)
 
     if ( !query.exec() )
     {
-        qDebug() << "isImageLocked() SQL query Error :" << query.lastError().databaseText().toAscii();
+        qDebug() << "isImageLocked() SQL query Error :" << query.lastError().databaseText().toLocal8Bit();
         qDebug("%d\t%d\t%d", id_publication, id_issue, id_section);
         qDebug() << page_name;
         ret = query.exec("UNLOCK TABLES");
@@ -3702,7 +3704,7 @@ int ClippingStation::getImageId(const QString name)
 
     if ( !query2.exec() )
     {
-        qDebug() << "Error in slave db query " << query2.lastQuery().toAscii();
+        qDebug() << "Error in slave db query " << query2.lastQuery().toLocal8Bit();
         qDebug() << "Error is " << query2.lastError().text();
         return -1;
     }
@@ -3727,7 +3729,7 @@ void ClippingStation::loadImageHighlights(int imageId)
 
     if ( !query.exec() )
     {
-        qDebug() << "Error in ocr db query " << query.lastQuery().toAscii();
+        qDebug() << "Error in ocr db query " << query.lastQuery().toLocal8Bit();
         qDebug() << "Error is " << query.lastError().text();
         return;
     }
@@ -3768,7 +3770,7 @@ void ClippingStation::loadImageHighlights(int imageId)
         tagH.append(t);
     }
 
-    qDebug() << "End get info from page_tag_coordinates" << endl;
+    qDebug() << "End get info from page_tag_coordinates" << Qt::endl;
 
     //QTimer::singleShot(100, this, SLOT(addRelatedKeywordsToTag(tagH)));
 
@@ -3871,7 +3873,7 @@ QList<WordCoordinates> ClippingStation::loadImageText(QString page, QSqlDatabase
 
     if (!query.exec())
     {
-        qDebug() << query.lastError().text().toAscii();
+        qDebug() << query.lastError().text().toLocal8Bit();
         return tagW;
     }
 
@@ -3890,7 +3892,7 @@ QList<WordCoordinates> ClippingStation::loadImageText(QString page, QSqlDatabase
 
     if ( !query2.exec() )
     {
-        qDebug() << query2.lastError().text().toAscii();
+        qDebug() << query2.lastError().text().toLocal8Bit();
         return tagW;
     }
 
@@ -3973,7 +3975,7 @@ void ClippingStation::updateSectionPagesStatus()
             for(int k=0; k< pagesCount; k++)
             {
                 QString pageName = model->index(k, 0, sectionIndex).data(Qt::DisplayRole).toString();
-                pageName = QString("%1.jpg").arg(pageName.remove(QRegExp("[^\\d]")), 4, QChar('0'));
+                pageName = QString("%1.jpg").arg(pageName.remove(QRegularExpression("[^\\d]")), 4, QChar('0'));
 
                 QModelIndex pageIndex = model->index(k, 0, sectionIndex);
                 if( hash.find(pageName) != hash.end() )

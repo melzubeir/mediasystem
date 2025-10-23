@@ -107,6 +107,6 @@ int download(CURL* curlhandle, const char * remoepath, const char * localpath,
              long timeout, long tries, char * strerror);
 
 
-void MyOutputHandler(QtMsgType type, const char *msg);
+void MyOutputHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
 #endif // GLOBALFUNCTIONS_H

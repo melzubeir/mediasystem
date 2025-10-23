@@ -3,7 +3,7 @@
 #ifndef IMAGEOUTPUTFORMATDIALOG_H
 #define IMAGEOUTPUTFORMATDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 namespace Ui {
     class ImageOutputFormatDialog;
