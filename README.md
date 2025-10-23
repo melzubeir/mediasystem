@@ -310,7 +310,7 @@ See the LICENSE file for full license details.
 
 ---
 
-**Last Updated**: December 2024  
+**Last Updated**: October 2025
 **Qt Version**: 6.x (Successfully migrated from Qt 4)  
 **API Integration**: In Progress
 **Build Status**: All components building successfully
