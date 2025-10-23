@@ -184,7 +184,7 @@ PreviousPage=Ctrl+W
 debug=on
 ```
 
-## 🔧 Development Guidelines
+## Development Guidelines
 
 ### Code Architecture
 - **MVC Pattern**: Models, Views, and Controllers clearly separated
@@ -227,7 +227,7 @@ newCampaign = repo->create(newCampaign);
 - **Background Processing**: Non-blocking OCR and network operations
 - **Memory Management**: Qt's parent-child object hierarchy for automatic cleanup
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing Checklist
 - [ ] Image loading and display performance
@@ -255,7 +255,7 @@ mysql -u root -p socialhose -e "SELECT COUNT(*) FROM articles;"
 ```
 mediasystem/
 ├── ClippingStation/          # Main GUI application
-│   ├── api/                  # Socialhose API integration
+│   ├── api/                  # Socialhose API integration (TBD)
 │   │   ├── dto/              # Data Transfer Objects
 │   │   └── repositories/     # Repository pattern implementation
 │   ├── clippingstation.*     # Main application files
@@ -278,11 +278,6 @@ The system now supports modern REST API integration with the Socialhose service:
 **Endpoints**: Full CRUD operations for campaigns, mentions, and keywords
 **Data Sources**: Hybrid mode supports both API and local database
 **Offline Support**: Graceful fallback to local database when offline
-
-For detailed API documentation, see:
-- `INTEGRATION-PLAN.md` - Complete integration roadmap
-- `PHASE1-COMPLETE.md` - Completed foundation phase
-- `ClippingStation/api/` - Implementation details
 
 ## Troubleshooting
 
