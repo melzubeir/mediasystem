@@ -200,26 +200,6 @@ debug=on
 - **ImageCache**: Memory-efficient image caching system
 - **SocialhoseApiClient**: Modern REST API client with JWT authentication
 
-### API Integration Architecture
-```cpp
-// Example: Repository Pattern Usage
-CampaignRepository* repo = new CampaignRepository();
-connect(repo, &CampaignRepository::campaignCreated, this, &MainWindow::onCampaignCreated);
-
-// Fetch campaigns from API or database
-QList<SocialhoseDTO::Campaign> campaigns = repo->getAll();
-
-// Create new campaign
-SocialhoseDTO::Campaign newCampaign;
-newCampaign.name = "New Publication";
-newCampaign = repo->create(newCampaign);
-```
-
-### Error Handling
-- **Network Failures**: Automatic retry with exponential backoff
-- **Authentication**: Token refresh and re-login on expiration
-- **OCR Crashes**: Automatic process restart with crash dump generation
-- **Database Errors**: Graceful degradation with user notifications
 
 ### Performance Optimization
 - **Image Caching**: Multi-level caching (memory, disk, network)
@@ -227,16 +207,6 @@ newCampaign = repo->create(newCampaign);
 - **Background Processing**: Non-blocking OCR and network operations
 - **Memory Management**: Qt's parent-child object hierarchy for automatic cleanup
 
-## Testing
-
-### Manual Testing Checklist
-- [ ] Image loading and display performance
-- [ ] OCR accuracy for Arabic and English text
-- [ ] Clipping precision and coordinate accuracy
-- [ ] Multi-user authentication and permissions
-- [ ] API integration with Socialhose backend
-- [ ] Crash recovery and error handling
-- [ ] Cross-platform compatibility
 
 ### Integration Testing
 ```bash
@@ -271,12 +241,12 @@ mediasystem/
 
 ## API Documentation
 
-### Socialhose API Integration
+### Socialhose API Integration (PLANNED)
 The system now supports modern REST API integration with the Socialhose service:
 
 **Authentication**: JWT-based with automatic token refresh
 **Endpoints**: Full CRUD operations for campaigns, mentions, and keywords
-**Data Sources**: Hybrid mode supports both API and local database
+**Data Sources**: Migrate away from direct SQL access to API
 **Offline Support**: Graceful fallback to local database when offline
 
 ## Troubleshooting
@@ -295,17 +265,9 @@ debug=on
 ```
 
 ### Support
-- Check existing documentation: `CLAUDE.md`, `INTEGRATION-PLAN.md`
-- Review database schema: `db_schema.sql`
 - Examine configuration: `ClippingStation/config.ini`
+When all else fails, email support@socialhose.net
 
 ## License
 This project is licensed under the GNU General Public License v3.0 (GPLv3).  
 See the LICENSE file for full license details.
-
----
-
-**Last Updated**: October 2025
-**Qt Version**: 6.x (Successfully migrated from Qt 4)  
-**API Integration**: In Progress
-**Build Status**: All components building successfully
